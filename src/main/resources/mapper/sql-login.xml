@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sidea.version.nudge.mapper.LoginMapper">
+
+    <select id="login" parameterType="sidea.version.nudge.dto.UserDto" resultType="sidea.version.nudge.dto.UserDto">
+        select user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave
+        from user
+        where user_email = #{userEmail} and user_pw = #{userPw}
+    </select>
+
+    <select id="selectUserByUserEmail" parameterType="String" resultType="sidea.version.nudge.dto.UserDto">
+        select user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave
+        from user
+        where user_email = #{userEmail}
+    </select>
+
+    <insert id="registUser" parameterType="sidea.version.nudge.dto.UserDto">
+        insert into user (user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave)
+        values (#{userEmail}, #{userPw}, #{userNickname}, #{userImage}, #{userPointBalance}, #{userDonationBalance}, #{userLeave})
+    </insert>
+
+</mapper>
