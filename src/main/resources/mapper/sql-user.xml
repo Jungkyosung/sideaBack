@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sidea.version.nudge.mapper.UserMapper">
+
+    <update id="modifyUser" parameterType="sidea.version.nudge.dto.UserDto">
+        update user set
+        user = #{userPw},
+
+        where user_email = #{userEmail}
+    </update>
+
+    <update id="deleteUser" parameterType="sidea.version.nudge.dto.UserDto">
+        update user set user_leave = "Y"
+        where user_email = #{userEmail}
+    </update>
+
+</mapper>

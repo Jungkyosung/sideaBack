@@ -26,6 +26,7 @@ public class LoginService implements UserDetailsService {
         return loginMapper.login(userDto);
     }
 
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDto userDto = loginMapper.selectUserByUserEmail(username);
         //가져온 userDto내용이 없다면, 에러발생
@@ -43,7 +44,7 @@ public class LoginService implements UserDetailsService {
     }
 
     public int registUser(UserDto userDto) throws Exception {
-        userDto.setUserImage("profile" + ((int)(Math.random()*8)+1) + ".png");
+//        userDto.setUserImage("profile" + ((int)(Math.random()*8)+1) + ".png");
         userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
         return loginMapper.registUser(userDto);
     }
