@@ -21,5 +21,6 @@ public class TodoDto {
     private Timestamp todoEndDate;
     private Timestamp todoDoneDate;
     private int todoAlarm;              //알람여부
+    private String userEmail;
 
 }

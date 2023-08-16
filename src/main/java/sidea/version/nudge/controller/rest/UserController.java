@@ -1,16 +1,14 @@
 package sidea.version.nudge.controller.rest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sidea.version.nudge.dto.UserDto;
-import sidea.version.nudge.service.LoginService;
 import sidea.version.nudge.service.UserService;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -44,4 +42,29 @@ public class UserController {
         }
     }
 
+    //닉네임 중복 확인
+    @GetMapping("/usernickname/duplicate")
+    public ResponseEntity<String> nicknameDuplCheck(@RequestParam(value = "usernickname") String userNickname) throws Exception{
+
+        UserDto selectedUser = userService.nicknameDuplCheck(userNickname);
+
+        if( selectedUser == null){
+            return ResponseEntity.status(HttpStatus.OK).body("중복 닉네임 없음");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("중복 닉네임 있음");
+        }
+    }
+
+    //비밀번호 확인
+    @GetMapping("/userpw")
+    public ResponseEntity<String> selectUserPw(@RequestBody UserDto userDto) throws Exception{
+
+        boolean selectedUser = userService.selectUserPw(userDto);
+
+        if( selectedUser){
+            return ResponseEntity.status(HttpStatus.OK).body("비밀번호 일치");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("비밀번호 불일치");
+        }
+    }
 }

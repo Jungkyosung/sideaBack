@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sidea.version.nudge.mapper.TodoMapper">
+
+    <!--  투두리스트조회 회원,날짜, 미삭제  -->
+    <select id="getTodoList" resultType="sidea.version.nudge.dto.TodoDto">
+        select * from todo
+        where user_idx = #{userIdx} and todo_date = #{todoDate} and todo_delete is null
+    </select>
+
+    <!--  투두등록  -->
+    <insert id="insertTodo" parameterType="sidea.version.nudge.dto.TodoDto">
+        insert todo (user_idx, todo_contents, todo_date, todo_start_date, todo_end_date, todo_alarm)
+        value (#{userIdx}, #{todoContents}, #{todoDate}, #{todoStartDate}, #{todoEndDate}, #{todoAlarm})
+    </insert>
+
+    <!--  투두수정  -->
+    <update id="updateTodo" parameterType="sidea.version.nudge.dto.TodoDto">
+        update todo set
+        todo_contents = #{todoContents}, todo_date = #{todoDate}, todo_start_date=#{todoStartDate}, todo_end_date=#{todoEndDate}, todo_alarm = #{todoAlarm}
+        where todo_idx = #{todoIdx}
+    </update>
+
+    <!--  투두삭제  -->
+    <update id="deleteTodo" parameterType="sidea.version.nudge.dto.TodoDto">
+        update todo set
+        todo_delete = "Y"
+        where todo_idx = #{todoIdx}
+    </update>
+
+    <!--  투두완료  -->
+    <update id="finishTodo" parameterType="sidea.version.nudge.dto.TodoDto">
+        update todo set
+        todo_done = 1,
+        todo_done_time = now()
+        where todo_idx = #{todoIdx}
+    </update>
+
+    <!--  투두알림 설정  -->
+    <update id="alarmTodo" parameterType="sidea.version.nudge.dto.TodoDto">
+        update todo set
+        todo_alarm = #{todoAlarm}
+        where todo_idx = #{todoIdx}
+    </update>
+
+</mapper>
