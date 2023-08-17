@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sidea.version.nudge.mapper.AdminDonationMapper">
+
+    <!--  캠페인 목록 조회  -->
+    <select id="getDonationList" resultType="sidea.version.nudge.dto.DonationInfoDto">
+        select *
+        from donation dn
+        join donor dr
+        on dn.donor_idx = dr.donor_idx
+        where donation_delete = "N" and donation_duration < now()
+    </select>
+
+    <!--  캠페인 세부내역 조회  -->
+    <select id="getDonationDetail" parameterType="String" resultType="sidea.version.nudge.dto.DonationInfoDto">
+        select *
+        from donation dn
+        join donor dr
+        on dn.donor_idx = dr.donor_idx
+        where donation_idx = #{donationIdx}
+    </select>
+
+    <insert id="insertDonation" parameterType="sidea.version.nudge.dto.DonationInfoDto">
+        insert into user (user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave)
+        values (#{userEmail}, #{userPw}, #{userNickname}, #{userImage}, #{userPointBalance}, #{userDonationBalance}, #{userLeave})
+    </insert>
+
+    <update id="userLeave" parameterType="sidea.version.nudge.dto.UserDto">
+        update user set user_leave = "Y"
+        where user_email = #{userEmail}
+    </update>
+</mapper>
