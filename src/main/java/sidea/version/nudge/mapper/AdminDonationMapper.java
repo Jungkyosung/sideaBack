@@ -13,8 +13,16 @@ public interface AdminDonationMapper {
     public List<DonationInfoDto> getDonationList() throws Exception;
 
     //캠페인 세부내역 조회
-    public DonationInfoDto getDonationDetail(String donationIdx) throws Exception;
+    public DonationInfoDto getDonationDetail(long donationIdx) throws Exception;
 
     //캠페인 등록
     public int insertDonation(DonationInfoDto donationInfoDto) throws Exception;
+
+    //캠페인 수정
+    public int updateDonation(DonationInfoDto donationInfoDto) throws Exception;
+
+    //캠페인 삭제
+    public int deleteDonation(long donationIdx) throws Exception;
+
+
 }

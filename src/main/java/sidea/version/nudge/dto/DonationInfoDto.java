@@ -1,7 +1,10 @@
 package sidea.version.nudge.dto;
 
+import lombok.Data;
+
 import java.sql.Timestamp;
 
+@Data
 public class DonationInfoDto {
 
     //기부정보

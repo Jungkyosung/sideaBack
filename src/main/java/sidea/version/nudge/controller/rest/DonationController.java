@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sidea.version.nudge.dto.DonationDto;
+import sidea.version.nudge.dto.DonationInfoDto;
 import sidea.version.nudge.dto.UserDto;
 import sidea.version.nudge.service.DonationService;
 
@@ -32,9 +33,9 @@ public class DonationController {
 
     //기부세부내역 조회
     @GetMapping("/detail")
-    public ResponseEntity<Object> getDonationDetail(@RequestParam(value = "donationidx") String donationIdx) throws Exception{
+    public ResponseEntity<Object> getDonationDetail(@RequestParam(value = "donationIdx") long donationIdx) throws Exception{
 
-        DonationDto donationDetail = donationService.getDonationDetail(donationIdx);
+        DonationInfoDto donationDetail = donationService.getDonationDetail(donationIdx);
 
         if( donationDetail != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(donationDetail);
@@ -45,12 +46,12 @@ public class DonationController {
 
     //참여한 기부 리스트
     @GetMapping("/mydonation")
-    public ResponseEntity<Object> getDonationListByUser(@RequestParam(value = "donationidx") String donationIdx) throws Exception{
+    public ResponseEntity<Object> getDonationListByUser(@RequestParam(value = "userIdx") int userIdx) throws Exception{
 
-        DonationDto donationDetail = donationService.getDonationDetail(donationIdx);
+        List<DonationInfoDto> donationList = donationService.getDonationListByUser(userIdx);
 
-        if( donationDetail != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(donationDetail);
+        if( donationList.size() >= 0) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(donationList);
         } else {
             return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body("조회 불가");
         }

@@ -32,7 +32,7 @@ public class AdminDonationController {
 
     //캠페인 세부내역 조회
     @GetMapping("/detail")
-    public ResponseEntity<Object> getDonationDetail(@RequestParam(value="donationidx") String donationIdx) throws Exception{
+    public ResponseEntity<Object> getDonationDetail(@RequestParam(value="donationIdx") long donationIdx) throws Exception{
 
         DonationInfoDto donationDetail = adminDonationService.getDonationDetail(donationIdx);
 
@@ -58,6 +58,28 @@ public class AdminDonationController {
 
 
     //캠페인 수정
+    @PutMapping("")
+    public ResponseEntity<Object> updateDonation(@RequestBody DonationInfoDto donationInfoDto) throws Exception{
+
+        int insertedCnt = adminDonationService.updateDonation(donationInfoDto);
+
+        if( insertedCnt > 0) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("수정");
+        } else {
+            return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body("수정 불가");
+        }
+    }
 
     //캠페인 삭제
+    @DeleteMapping("")
+    public ResponseEntity<Object> deleteDonation(@RequestParam (value = "donationIdx") long donationIdx) throws Exception{
+
+        int insertedCnt = adminDonationService.deleteDonation(donationIdx);
+
+        if( insertedCnt > 0) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("삭제");
+        } else {
+            return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body("삭제 불가");
+        }
+    }
 }

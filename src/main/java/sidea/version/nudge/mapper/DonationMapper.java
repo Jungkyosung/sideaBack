@@ -2,6 +2,7 @@ package sidea.version.nudge.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import sidea.version.nudge.dto.DonationDto;
+import sidea.version.nudge.dto.DonationInfoDto;
 
 import java.util.List;
 
@@ -12,7 +13,9 @@ public interface DonationMapper {
     public List<DonationDto> getDonationList() throws Exception;
 
     //기부 세부내역 조회
-    public DonationDto getDonationDetail(String donationIdx) throws Exception;
+    public DonationInfoDto getDonationDetail(long donationIdx) throws Exception;
+
+    public List<DonationInfoDto> getDonationListByUser(int userIdx) throws Exception;
 
 
 }

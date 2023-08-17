@@ -19,13 +19,23 @@ public class AdminDonationService {
     }
 
     //캠페인 세부내역 조회
-    public DonationInfoDto getDonationDetail(String donationIdx) throws Exception{
+    public DonationInfoDto getDonationDetail(long donationIdx) throws Exception{
         return adminDonationMapper.getDonationDetail(donationIdx);
     }
 
     //캠페인 등록
     public int insertDonation(DonationInfoDto donationInfoDto) throws Exception{
         return adminDonationMapper.insertDonation(donationInfoDto);
+    }
+
+    //캠페인 수정
+    public int updateDonation(DonationInfoDto donationInfoDto) throws Exception{
+        return adminDonationMapper.updateDonation(donationInfoDto);
+    }
+
+    //캠페인 삭제
+    public int deleteDonation(long donationIdx) throws Exception{
+        return adminDonationMapper.deleteDonation(donationIdx);
     }
 
 

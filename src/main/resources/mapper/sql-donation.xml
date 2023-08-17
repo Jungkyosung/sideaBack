@@ -9,11 +9,11 @@
         from donation dn
         join donor dr
         on dn.donor_idx = dr.donor_idx
-        where donation_delete = "N" and donation_duration < now()
+        where donation_delete = "N" and donation_duration &gt; now()
     </select>
 
 <!--  기부세부내역 조회  -->
-    <select id="getDonationDetail" parameterType="String" resultType="sidea.version.nudge.dto.DonationInfoDto">
+    <select id="getDonationDetail" parameterType="Long" resultType="sidea.version.nudge.dto.DonationInfoDto">
         select *
         from donation dn
         join donor dr
@@ -21,7 +21,15 @@
         where donation_idx = #{donationIdx}
     </select>
 
-
+    <!--  참여 리스트 조회(작업 중)  -->
+    <select id="getDonationListByUser" parameterType="Integer" resultType="sidea.version.nudge.dto.DonationInfoDto">
+        select * from user_donation ud
+        join donation d
+        on ud.donation_idx = d.donation_idx
+        join user u
+        on u.user_idx = ud.user_idx
+        where u.user_idx = #{userIdx}
+    </select>
 
 
 
