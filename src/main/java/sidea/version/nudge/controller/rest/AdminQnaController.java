@@ -5,60 +5,57 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sidea.version.nudge.dto.AskDto;
-import sidea.version.nudge.service.QnaService;
+import sidea.version.nudge.service.AdminQnaService;
 
 @RestController
-@RequestMapping("/api/qna")
-public class QnaController {
+@RequestMapping("/api/admin/qna")
+public class AdminQnaController {
 
     @Autowired
-    private QnaService qnaService;
+    private AdminQnaService adminQnaService;
 
-    //회원 QNA 목록 조회
+    //QNA 목록 조회
     @GetMapping
-    public ResponseEntity<Object> getQnaList(@RequestParam(value = "userIdx") long userIdx) throws Exception{
+    public ResponseEntity<Object> getQnaList() throws Exception{
 
-        qnaService.getQnaList(userIdx);
+        adminQnaService.getQnaList();
 
         return ResponseEntity.status(HttpStatus.OK).body("");
     }
 
-
-    //QNA 상세보기(조회)
+    //QNA 세부 조회
     @GetMapping("/detail")
-    public ResponseEntity<Object> getQnaDetail(@RequestBody AskDto askDto) throws Exception{
+    public ResponseEntity<Object> getQnaDetail(@RequestParam(value = "askIdx") long askIdx) throws Exception{
 
-        qnaService.getQnaDetail(askDto);
+        adminQnaService.getQnaDetail(askIdx);
 
         return ResponseEntity.status(HttpStatus.OK).body("");
     }
 
-    //QNA 작성
-    @PostMapping
+    //QNA 등록
+    @GetMapping
     public ResponseEntity<Object> insertQna(@RequestBody AskDto askDto) throws Exception{
 
-        qnaService.insertQna(askDto);
+        adminQnaService.insertQna(askDto);
 
         return ResponseEntity.status(HttpStatus.OK).body("");
     }
 
     //QNA 수정
-    @PutMapping
+    @GetMapping
     public ResponseEntity<Object> updateQna(@RequestBody AskDto askDto) throws Exception{
 
-        qnaService.updateQna(askDto);
+        adminQnaService.insertQna(askDto);
 
         return ResponseEntity.status(HttpStatus.OK).body("");
     }
 
     //QNA 삭제
-    @DeleteMapping
-    public ResponseEntity<Object> deletetQna(@RequestBody AskDto askDto) throws Exception{
+    @GetMapping
+    public ResponseEntity<Object> deleteQna(@RequestBody AskDto askDto) throws Exception{
 
-        qnaService.deleteQna(askDto);
+        adminQnaService.insertQna(askDto);
 
         return ResponseEntity.status(HttpStatus.OK).body("");
     }
-
-
 }

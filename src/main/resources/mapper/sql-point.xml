@@ -5,7 +5,7 @@
 
     <!-- 미작업 -->
     <!-- 포인트 내역 조회 -->
-    <select id="getPointList" parameterType="String" resultType="sidea.version.nudge.dto.PointDto">
+    <select id="getPointList" parameterType="Long" resultType="sidea.version.nudge.dto.PointDto">
         select *
         from point
         where user_idx = #{userIdx}
@@ -17,6 +17,20 @@
         from user
         where user_email = #{userEmail}
     </select>
+
+    <!--  회원 현재 포인트 잔액 조회  -->
+    <select id="getPointBalance" parameterType="Long" >
+        select user_point_balance
+        from user
+        where user_idx = #{userIDx}
+    </select>
+
+    <!--  회원 현재 포인트 잔액 조회  -->
+    <update id="updatePointBalance" parameterType="sidea.version.nudge.dto.UserDto" >
+        update user set user_point_balance = #{userPointBalance}
+        where user_idx = #{userIDx}
+    </update>
+
 
 
 </mapper>

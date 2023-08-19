@@ -3,6 +3,7 @@ package sidea.version.nudge.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sidea.version.nudge.dto.PointDto;
+import sidea.version.nudge.dto.UserDto;
 import sidea.version.nudge.mapper.PointMapper;
 
 import java.util.List;
@@ -25,9 +26,18 @@ public class PointService {
 
     //포인트 기부
 
+
     //포인트 획득
 
+    //회원 현재 포인트잔액 조회
+    public int getPointBalance(long userIdx) throws Exception{
+        return pointMapper.getPointBalance(userIdx);
+    }
 
+    //회원 현재 포인트 잔액 수정
+    public int updatePointBalance(UserDto userDto) throws Exception{
+        return pointMapper.updatePointBalance(userDto);
+    }
 
 
 }
