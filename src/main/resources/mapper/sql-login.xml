@@ -4,13 +4,13 @@
 <mapper namespace="sidea.version.nudge.mapper.LoginMapper">
 
     <select id="login" parameterType="sidea.version.nudge.dto.UserDto" resultType="sidea.version.nudge.dto.UserDto">
-        select user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave
+        select user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave, user_idx
         from user
         where user_email = #{userEmail} and user_pw = #{userPw}
     </select>
 
     <select id="selectUserByUserEmail" parameterType="String" resultType="sidea.version.nudge.dto.UserDto">
-        select user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave
+        select user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave, user_idx
         from user
         where user_email = #{userEmail}
     </select>

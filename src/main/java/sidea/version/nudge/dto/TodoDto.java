@@ -23,7 +23,6 @@ public class TodoDto {
     private int todoAlarm;              //알람여부
     private String userEmail;
 
-    //투두별 point 지정
-    private int todoPointScore;
+    private int todoPoint;              //투두별 point 지정
 
 }

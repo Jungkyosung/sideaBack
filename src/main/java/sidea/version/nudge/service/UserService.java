@@ -15,6 +15,12 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+    //회원정보조회
+    public UserDto getUser(String userEmail) throws Exception{
+        return userMapper.getUser(userEmail);
+    }
+
+
     //정보수정
     public int modifyUser(UserDto userDto) throws Exception{
         userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));

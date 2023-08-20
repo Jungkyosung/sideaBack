@@ -11,14 +11,14 @@
 
     <!--  투두등록  -->
     <insert id="insertTodo" parameterType="sidea.version.nudge.dto.TodoDto">
-        insert todo (user_idx, todo_contents, todo_date, todo_start_date, todo_end_date, todo_alarm)
-        value (#{userIdx}, #{todoContents}, #{todoDate}, #{todoStartDate}, #{todoEndDate}, #{todoAlarm})
+        insert todo (user_idx, todo_contents, todo_date, todo_start_date, todo_end_date, todo_alarm, todo_point)
+        value (#{userIdx}, #{todoContents}, #{todoDate}, #{todoStartDate}, #{todoEndDate}, #{todoAlarm}, #{todoPoint})
     </insert>
 
     <!--  투두수정  -->
     <update id="updateTodo" parameterType="sidea.version.nudge.dto.TodoDto">
         update todo set
-        todo_contents = #{todoContents}, todo_date = #{todoDate}, todo_start_date=#{todoStartDate}, todo_end_date=#{todoEndDate}, todo_alarm = #{todoAlarm}
+        todo_contents = #{todoContents}, todo_date = #{todoDate}, todo_start_date=#{todoStartDate}, todo_end_date=#{todoEndDate}, todo_alarm = #{todoAlarm}, todo_point = #{todoPoint}
         where todo_idx = #{todoIdx}
     </update>
 

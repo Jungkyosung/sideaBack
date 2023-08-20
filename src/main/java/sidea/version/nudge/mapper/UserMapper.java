@@ -6,6 +6,9 @@ import sidea.version.nudge.dto.UserDto;
 @Mapper
 public interface UserMapper {
 
+    //회원정보 조회
+    public UserDto getUser(String userEmail) throws Exception;
+
     //정보수정
     public int modifyUser(UserDto userDto) throws Exception;
 

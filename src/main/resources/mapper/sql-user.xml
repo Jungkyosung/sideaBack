@@ -3,6 +3,12 @@
 
 <mapper namespace="sidea.version.nudge.mapper.UserMapper">
 
+<!--  회원정보 조회  -->
+    <select id="getUser" parameterType="String" resultType="sidea.version.nudge.dto.UserDto">
+        select * from user
+        where user_email = #{userEmail}
+    </select>
+
 <!--  정보수정  -->
     <update id="modifyUser" parameterType="sidea.version.nudge.dto.UserDto">
         update user set

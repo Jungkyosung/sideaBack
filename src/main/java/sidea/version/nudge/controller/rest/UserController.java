@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import sidea.version.nudge.dto.UserDto;
 import sidea.version.nudge.service.UserService;
 
+import java.net.URLDecoder;
+
 @Slf4j
 @RestController
 @RequestMapping("/api")
@@ -15,6 +17,20 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    //회원정보 조회
+    @GetMapping("/userinfo")
+    public ResponseEntity<Object> getUser(@RequestParam(value = "userEmail") String userEmail) throws Exception{
+
+        UserDto user = userService.getUser(userEmail);
+
+        if( user != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body("유저정보가 없음");
+        }
+    }
+
 
     //회원정보 변경
     @PutMapping("/user")

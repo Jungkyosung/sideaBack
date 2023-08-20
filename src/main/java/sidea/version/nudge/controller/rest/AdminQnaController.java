@@ -33,7 +33,7 @@ public class AdminQnaController {
     }
 
     //QNA 등록
-    @GetMapping
+    @PostMapping
     public ResponseEntity<Object> insertQna(@RequestBody AskDto askDto) throws Exception{
 
         adminQnaService.insertQna(askDto);
@@ -42,7 +42,7 @@ public class AdminQnaController {
     }
 
     //QNA 수정
-    @GetMapping
+    @PutMapping
     public ResponseEntity<Object> updateQna(@RequestBody AskDto askDto) throws Exception{
 
         adminQnaService.insertQna(askDto);
@@ -51,11 +51,12 @@ public class AdminQnaController {
     }
 
     //QNA 삭제
-    @GetMapping
+    @DeleteMapping
     public ResponseEntity<Object> deleteQna(@RequestBody AskDto askDto) throws Exception{
 
         adminQnaService.insertQna(askDto);
 
         return ResponseEntity.status(HttpStatus.OK).body("");
     }
+
 }

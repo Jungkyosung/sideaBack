@@ -41,7 +41,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             jwtToken = authorizationHeader.substring(7);
             subject = jwtTokenUtil.getSubjectFromToken(jwtToken);
         } else {
-            log.error("Authoriztion 헤더 누락 또는 토큰 형식 오류");
+            log.error("Authorization 헤더 누락 또는 토큰 형식 오류");
         }
 
         if (subject != null) {
