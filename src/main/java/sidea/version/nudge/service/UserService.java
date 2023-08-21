@@ -1,11 +1,13 @@
 package sidea.version.nudge.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import sidea.version.nudge.dto.UserDto;
 import sidea.version.nudge.mapper.UserMapper;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -38,10 +40,9 @@ public class UserService {
     }
 
     //비밀번호 확인
-    public boolean selectUserPw(UserDto userDto) throws Exception{
+    public boolean selectUserPw(String userEmail, String userPw) throws Exception{
 
-        String userPw = userDto.getUserPw();
-        UserDto selectedUser = userMapper.selectUserPw(userDto);
+        UserDto selectedUser = userMapper.getUser(userEmail);
         String selectedUserPw = selectedUser.getUserPw();
 
         return passwordEncoder.matches(userPw, selectedUserPw);

@@ -49,6 +49,9 @@ public class UserController {
     @PutMapping("/user/delete")
     public ResponseEntity<Object> deleteUser(@RequestBody UserDto userDto) throws Exception{
 
+        log.info("유저이메일={}",userDto.getUserEmail());
+        log.info("유저비밀번호={}",userDto.getUserPw());
+
         int deletedCnt = userService.deleteUser(userDto);
 
         if( deletedCnt > 0) {
@@ -60,24 +63,25 @@ public class UserController {
 
     //닉네임 중복 확인
     @GetMapping("/usernickname/duplicate")
-    public ResponseEntity<String> nicknameDuplCheck(@RequestParam(value = "usernickname") String userNickname) throws Exception{
+    public ResponseEntity<Integer> nicknameDuplCheck(@RequestParam(value = "usernickname") String userNickname) throws Exception{
 
         UserDto selectedUser = userService.nicknameDuplCheck(userNickname);
 
         if( selectedUser == null){
-            return ResponseEntity.status(HttpStatus.OK).body("중복 닉네임 없음");
+            return ResponseEntity.status(HttpStatus.OK).body(0);
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body("중복 닉네임 있음");
+            return ResponseEntity.status(HttpStatus.OK).body(1);
         }
     }
 
     //비밀번호 확인
     @GetMapping("/userpw")
-    public ResponseEntity<String> selectUserPw(@RequestBody UserDto userDto) throws Exception{
+    public ResponseEntity<String> selectUserPw(@RequestParam(value = "userEmail") String userEmail, @RequestParam(value = "userPw") String userPw) throws Exception{
 
-        boolean selectedUser = userService.selectUserPw(userDto);
+        log.info("입력 받은 비밀번호 = {}",userPw);
+        boolean selectedUser = userService.selectUserPw(userEmail, userPw);
 
-        if( selectedUser){
+        if( selectedUser ){
             return ResponseEntity.status(HttpStatus.OK).body("비밀번호 일치");
         } else {
             return ResponseEntity.status(HttpStatus.OK).body("비밀번호 불일치");

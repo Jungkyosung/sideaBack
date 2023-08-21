@@ -7,6 +7,7 @@ import sidea.version.nudge.dto.UserDto;
 public interface LoginMapper {
 
     public UserDto login(UserDto userDto) throws Exception;
+
     public UserDto selectUserByUserEmail(String userEmail);
 
     public int registUser(UserDto userDto) throws Exception;

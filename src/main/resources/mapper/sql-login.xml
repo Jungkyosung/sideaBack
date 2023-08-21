@@ -20,9 +20,5 @@
         values (#{userEmail}, #{userPw}, #{userNickname}, #{userImage}, #{userPointBalance}, #{userDonationBalance}, #{userLeave})
     </insert>
 
-    <update id="userLeave" parameterType="sidea.version.nudge.dto.UserDto">
-        update user set user_leave = "Y"
-        where user_email = #{userEmail}
-    </update>
 </mapper>
 

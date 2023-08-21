@@ -6,7 +6,7 @@
     <!--  투두리스트조회 회원,날짜, 미삭제  -->
     <select id="getTodoList" resultType="sidea.version.nudge.dto.TodoDto">
         select * from todo
-        where user_idx = #{userIdx} and todo_date = #{todoDate} and todo_delete is null
+        where user_idx = #{userIdx} and todo_date = #{todoDate} and todo_delete = 'N'
     </select>
 
     <!--  투두등록  -->

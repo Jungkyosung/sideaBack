@@ -19,19 +19,13 @@
 <!--  회원탈퇴  -->
     <update id="deleteUser" parameterType="sidea.version.nudge.dto.UserDto">
         update user set user_leave = "Y"
-        where user_email = #{userEmail}
+        where user_email = #{userEmail} and user_pw = #{userPw}
     </update>
 
 <!--  닉네임 중복 확인  -->
     <select id="nicknameDuplCheck" resultType="sidea.version.nudge.dto.UserDto">
         select * from user
         where user_nickname = #{userNickname}
-    </select>
-
-<!--  비밀번호 확인  -->
-    <select id="selectUserPw" resultType="sidea.version.nudge.dto.UserDto">
-        select * from user
-        where user_email=#{userEmail}
     </select>
 
 
