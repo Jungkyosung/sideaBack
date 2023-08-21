@@ -38,7 +38,7 @@ public class PointController {
 
         //포인트 충전이면 회원 포인트를 조정하고 충전내역을 등록해야 하지 않나??
         //회원별로 포인트 내역을 기록해야 할 듯?
-        pointDto.setPointTypeIdx(PointType.기부.value());//이렇게 하면 기부의 값인 3이 나오나?
+        pointDto.setPointTypeIdx(PointType.충전.value());//이렇게 하면 충전의 값인 3이 나오나?
 
         //int, double 단위 좀 맞춰야 할 듯....
         //회원 포인트 잔액 조회 -> 잔액 + 충전액 -> 회원정보 업데이트 -> 포인트 충전 내역 입력
@@ -58,13 +58,14 @@ public class PointController {
         }
     }
 
-    //포인트 기부
+    //포인트 기부(기부라기 보단 임시 포인트로 차감시켜야 겠음 용어 변경 필요, 이후에 기부가능(임시)포인트에서 기부하는 방식으로 변경 필요)
     @PostMapping("/donation")
+    @Transactional
     public ResponseEntity<Object> donatePoint(@RequestBody PointDto pointDto) throws Exception{
 
         //포인트 충전이면 회원 포인트를 조정하고 충전내역을 등록해야 하지 않나??
         //회원별로 포인트 내역을 기록해야 할 듯?
-        pointDto.setPointTypeIdx(PointType.기부.value());//이렇게 하면 기부의 값인 3이 나오나?
+        pointDto.setPointTypeIdx(PointType.기부.value());//이렇게 하면 기부의 값인 1이 나오나?
 
         //int, double 단위 좀 맞춰야 할 듯....
         //회원 포인트 잔액 조회 -> 잔액 + 충전액 -> 회원정보 업데이트 -> 포인트 충전 내역 입력
@@ -72,26 +73,27 @@ public class PointController {
         int pointScore = (int)pointDto.getPointScore();
         UserDto userDto = new UserDto();
         userDto.setUserIdx(pointDto.getUserIdx());
-        userDto.setUserPointBalance(pointBalance + pointScore);
+        userDto.setUserPointBalance(pointBalance - pointScore);
 
         int updatedCnt = pointService.updatePointBalance(userDto);
-        int insertedCnt = pointService.chargePoint(pointDto);
+        int insertedCnt = pointService.donatePoint(pointDto);
 
         if( (updatedCnt == insertedCnt) && insertedCnt > 0) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("포인트 충전");
+            return ResponseEntity.status(HttpStatus.CREATED).body("포인트 기부");
         } else {
-            return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body("충전 불가");
+            return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body("기부 불가");
         }
     }
 
 
-    //포인트 적립
+    //포인트 획득(적립)
     @PostMapping("/earning")
+    @Transactional
     public ResponseEntity<Object> earnPoint(@RequestBody PointDto pointDto) throws Exception{
 
         //포인트 충전이면 회원 포인트를 조정하고 충전내역을 등록해야 하지 않나??
         //회원별로 포인트 내역을 기록해야 할 듯?
-        pointDto.setPointTypeIdx(PointType.기부.value());//이렇게 하면 기부의 값인 3이 나오나?
+        pointDto.setPointTypeIdx(PointType.획득.value());//이렇게 하면 획득의 값인 2가 나오나?
 
         //int, double 단위 좀 맞춰야 할 듯....
         //회원 포인트 잔액 조회 -> 잔액 + 충전액 -> 회원정보 업데이트 -> 포인트 충전 내역 입력
@@ -102,12 +104,12 @@ public class PointController {
         userDto.setUserPointBalance(pointBalance + pointScore);
 
         int updatedCnt = pointService.updatePointBalance(userDto);
-        int insertedCnt = pointService.chargePoint(pointDto);
+        int insertedCnt = pointService.earnPoint(pointDto);
 
         if( (updatedCnt == insertedCnt) && insertedCnt > 0) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("포인트 충전");
+            return ResponseEntity.status(HttpStatus.CREATED).body("포인트 획득");
         } else {
-            return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body("충전 불가");
+            return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body("획득 불가");
         }
     }
 

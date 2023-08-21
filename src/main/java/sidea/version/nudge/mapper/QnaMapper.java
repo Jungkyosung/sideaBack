@@ -13,9 +13,9 @@ public interface QnaMapper {
     public List<AskDto> getQnaList(long userIdx) throws Exception;
 
     //QNA 상세보기(조회)
-    public AskDto getQnaDetail(AskDto askDto) throws Exception;
+    public AskDto getQnaDetail(long askIdx, long userIdx) throws Exception;
 
-    //QNA 작성
+    //QNA 등록
     public int insertQna(AskDto askDto) throws Exception;
 
     //QNA 수정

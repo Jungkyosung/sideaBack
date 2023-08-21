@@ -12,23 +12,34 @@
     </select>
 
     <!--  포인트 충전  -->
-    <select id="selectUserByUserEmail" parameterType="String" resultType="sidea.version.nudge.dto.UserDto">
-        select user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave
-        from user
-        where user_email = #{userEmail}
-    </select>
+    <insert id="chargePoint" parameterType="sidea.version.nudge.dto.PointDto">
+        insert into point( user_idx, point_type_idx, point_score, point_date )
+        value ( #{userIdx}, #{pointTypeIdx}, #{pointScore}, #{pointDate} )
+    </insert>
+
+    <!--  포인트 기부  -->
+    <insert id="donatePoint" parameterType="sidea.version.nudge.dto.PointDto">
+        insert into point( user_idx, point_type_idx, point_score, point_date )
+        value ( #{userIdx}, #{pointTypeIdx}, #{pointScore}, #{pointDate} )
+    </insert>
+
+    <!--  포인트 획득  -->
+    <insert id="earnPoint" parameterType="sidea.version.nudge.dto.PointDto">
+        insert into point( user_idx, point_type_idx, point_score, point_date )
+        value ( #{userIdx}, #{pointTypeIdx}, #{pointScore}, #{pointDate} )
+    </insert>
 
     <!--  회원 현재 포인트 잔액 조회  -->
     <select id="getPointBalance" parameterType="Long" >
         select user_point_balance
         from user
-        where user_idx = #{userIDx}
+        where user_idx = #{userIdx}
     </select>
 
-    <!--  회원 현재 포인트 잔액 조회  -->
+    <!--  회원 현재 포인트 잔액 수정  -->
     <update id="updatePointBalance" parameterType="sidea.version.nudge.dto.UserDto" >
         update user set user_point_balance = #{userPointBalance}
-        where user_idx = #{userIDx}
+        where user_idx = #{userIdx}
     </update>
 
 

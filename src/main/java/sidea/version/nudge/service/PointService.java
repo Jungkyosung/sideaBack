@@ -25,9 +25,14 @@ public class PointService {
     }
 
     //포인트 기부
-
+    public int donatePoint(PointDto pointDto) throws Exception{
+        return pointMapper.donatePoint(pointDto);
+    }
 
     //포인트 획득
+    public int earnPoint(PointDto pointDto) throws Exception{
+        return pointMapper.earnPoint(pointDto);
+    }
 
     //회원 현재 포인트잔액 조회
     public int getPointBalance(long userIdx) throws Exception{

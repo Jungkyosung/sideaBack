@@ -15,6 +15,13 @@ public interface PointMapper {
     //포인트 충전
     public int chargePoint(PointDto pointDto) throws Exception;
 
+    //포인트 기부
+    public int donatePoint(PointDto pointDto) throws Exception;
+
+    //포인트 획득
+    public int earnPoint(PointDto pointDto) throws Exception;
+
+
     //회원 현재 포인트 조회
     public int getPointBalance(long userIdx) throws Exception;
 

@@ -2,7 +2,7 @@ package sidea.version.nudge.dto;
 
 public enum PointType {
 
-    충전(1),획득(2),기부(3);
+    기부(1),획득(2),충전(3);
 
     private final int value;
 

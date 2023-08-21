@@ -18,5 +18,7 @@ public class AskDto {
     private Timestamp askAnswerDate;
 
     //문의 삭제 컬럼 추가필요
+    private String askDelete;
+    private String askAnswerDelete;
 
 }

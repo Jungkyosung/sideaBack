@@ -19,8 +19,8 @@ public class QnaService {
     }
 
     //QNA 상세보기(조회)
-    public AskDto getQnaDetail(AskDto askDto) throws Exception{
-        return qnaMapper.getQnaDetail(askDto);
+    public AskDto getQnaDetail(long askIdx, long userIdx) throws Exception{
+        return qnaMapper.getQnaDetail(askIdx, userIdx);
     }
 
     //QNA 작성

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import sidea.version.nudge.dto.AskDto;
 import sidea.version.nudge.service.QnaService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/qna")
 public class QnaController {
@@ -18,46 +20,70 @@ public class QnaController {
     @GetMapping
     public ResponseEntity<Object> getQnaList(@RequestParam(value = "userIdx") long userIdx) throws Exception{
 
-        qnaService.getQnaList(userIdx);
+        List<AskDto> qnaList = qnaService.getQnaList(userIdx);
 
-        return ResponseEntity.status(HttpStatus.OK).body("");
+        if (qnaList.size() > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body(qnaList);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("조회 불가 또는 조회 내용 없음");
+        }
+
     }
 
 
     //QNA 상세보기(조회)
     @GetMapping("/detail")
-    public ResponseEntity<Object> getQnaDetail(@RequestBody AskDto askDto) throws Exception{
+    public ResponseEntity<Object> getQnaDetail(
+            @RequestParam(value = "askIdx") long askIdx,
+            @RequestParam(value = "userIdx") long userIdx
+            ) throws Exception{
 
-        qnaService.getQnaDetail(askDto);
+        AskDto askDto = qnaService.getQnaDetail(askIdx, userIdx);
 
-        return ResponseEntity.status(HttpStatus.OK).body("");
+        if (askDto != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(askDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("조회 불가 또는 조회 내용 없음");
+        }
     }
 
-    //QNA 작성
+    //QNA 등록
     @PostMapping
     public ResponseEntity<Object> insertQna(@RequestBody AskDto askDto) throws Exception{
 
-        qnaService.insertQna(askDto);
+        int insertedQna = qnaService.insertQna(askDto);
 
-        return ResponseEntity.status(HttpStatus.OK).body("");
+        if (insertedQna > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body("등록");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("등록 불가");
+        }
     }
 
     //QNA 수정
     @PutMapping
     public ResponseEntity<Object> updateQna(@RequestBody AskDto askDto) throws Exception{
 
-        qnaService.updateQna(askDto);
+        int updatedCnt = qnaService.updateQna(askDto);
 
-        return ResponseEntity.status(HttpStatus.OK).body("");
+        if (updatedCnt > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body("수정");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("수정 불가");
+        }
     }
 
     //QNA 삭제
     @DeleteMapping
     public ResponseEntity<Object> deletetQna(@RequestBody AskDto askDto) throws Exception{
 
-        qnaService.deleteQna(askDto);
+        int deletedCnt = qnaService.deleteQna(askDto);
 
-        return ResponseEntity.status(HttpStatus.OK).body("");
+        if (deletedCnt > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body("삭제");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("삭제 불가");
+        }
     }
 
 
