@@ -35,7 +35,7 @@ public class PointService {
     }
 
     //회원 현재 포인트잔액 조회
-    public int getPointBalance(long userIdx) throws Exception{
+    public double getPointBalance(long userIdx) throws Exception{
         return pointMapper.getPointBalance(userIdx);
     }
 

@@ -20,9 +20,11 @@ public class TodoController {
 
     //투두리스트조회 회원, 날짜별
     @GetMapping("/todo")
-    public ResponseEntity<Object> getTodoList(@RequestParam(value = "userIdx") long userIdx, @RequestParam(value = "todoDate") String todoDate) throws Exception {
+    public ResponseEntity<Object> getTodoList(@RequestParam(value = "userIdx") long userIdx,
+                                              @RequestParam(value = "todoDate") String todoDate,
+                                              @RequestParam(value = "date") int date) throws Exception {
 
-        List<TodoDto> todoList = todoService.getTodoList(userIdx, todoDate);
+        List<TodoDto> todoList = todoService.getTodoList(userIdx, todoDate, date);
 
         if (todoList.size() > 0) {
             return ResponseEntity.status(HttpStatus.OK).body(todoList);

@@ -3,34 +3,34 @@
 
 <mapper namespace="sidea.version.nudge.mapper.PointMapper">
 
-    <!-- 미작업 -->
     <!-- 포인트 내역 조회 -->
     <select id="getPointList" parameterType="Long" resultType="sidea.version.nudge.dto.PointDto">
         select *
         from point
         where user_idx = #{userIdx}
+        order by point_date desc
     </select>
 
     <!--  포인트 충전  -->
     <insert id="chargePoint" parameterType="sidea.version.nudge.dto.PointDto">
-        insert into point( user_idx, point_type_idx, point_score, point_date )
-        value ( #{userIdx}, #{pointTypeIdx}, #{pointScore}, #{pointDate} )
+        insert into point( user_idx, point_type_idx, point_score)
+        value ( #{userIdx}, #{pointTypeIdx}, #{pointScore})
     </insert>
 
     <!--  포인트 기부  -->
     <insert id="donatePoint" parameterType="sidea.version.nudge.dto.PointDto">
-        insert into point( user_idx, point_type_idx, point_score, point_date )
-        value ( #{userIdx}, #{pointTypeIdx}, #{pointScore}, #{pointDate} )
+        insert into point( user_idx, point_type_idx, point_score)
+        value ( #{userIdx}, #{pointTypeIdx}, #{pointScore})
     </insert>
 
     <!--  포인트 획득  -->
     <insert id="earnPoint" parameterType="sidea.version.nudge.dto.PointDto">
-        insert into point( user_idx, point_type_idx, point_score, point_date )
-        value ( #{userIdx}, #{pointTypeIdx}, #{pointScore}, #{pointDate} )
+        insert into point( user_idx, point_type_idx, point_score)
+        value ( #{userIdx}, #{pointTypeIdx}, #{pointScore})
     </insert>
 
     <!--  회원 현재 포인트 잔액 조회  -->
-    <select id="getPointBalance" parameterType="Long" >
+    <select id="getPointBalance" parameterType="Long" resultType="Double">
         select user_point_balance
         from user
         where user_idx = #{userIdx}

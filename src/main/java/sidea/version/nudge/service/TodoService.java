@@ -16,8 +16,9 @@ public class TodoService {
     private TodoMapper todoMapper;
 
     //투두 조회
-    public List<TodoDto> getTodoList(long userIdx, String todoDate) throws Exception{
-        return todoMapper.getTodoList(userIdx, todoDate);
+    public List<TodoDto> getTodoList(long userIdx, String todoDate, int date) throws Exception{
+
+        return todoMapper.getTodoList(userIdx, todoDate, date);
     }
 
     //투두 등록

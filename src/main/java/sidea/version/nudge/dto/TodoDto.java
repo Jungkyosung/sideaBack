@@ -25,4 +25,14 @@ public class TodoDto {
 
     private int todoPoint;              //투두별 point 지정
 
+    //요일 컬럼
+    private int todoMon;
+    private int todoTue;
+    private int todoWed;
+    private int todoThu;
+    private int todoFri;
+    private int todoSat;
+    private int todoSun;
+
+
 }

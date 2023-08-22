@@ -1,5 +1,6 @@
 package sidea.version.nudge.controller.rest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import sidea.version.nudge.service.PointService;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/point")
 public class PointController {
@@ -40,9 +42,11 @@ public class PointController {
         //회원별로 포인트 내역을 기록해야 할 듯?
         pointDto.setPointTypeIdx(PointType.충전.value());//이렇게 하면 충전의 값인 3이 나오나?
 
+        log.info("2차징userIdx={}",pointDto.getUserIdx());
+        log.info("2pointDto 내용={}",pointDto.toString());
         //int, double 단위 좀 맞춰야 할 듯....
         //회원 포인트 잔액 조회 -> 잔액 + 충전액 -> 회원정보 업데이트 -> 포인트 충전 내역 입력
-        int pointBalance = pointService.getPointBalance(pointDto.getUserIdx());
+        int pointBalance = (int)pointService.getPointBalance(pointDto.getUserIdx());
         int pointScore = (int)pointDto.getPointScore();
         UserDto userDto = new UserDto();
         userDto.setUserIdx(pointDto.getUserIdx());
@@ -69,7 +73,7 @@ public class PointController {
 
         //int, double 단위 좀 맞춰야 할 듯....
         //회원 포인트 잔액 조회 -> 잔액 + 충전액 -> 회원정보 업데이트 -> 포인트 충전 내역 입력
-        int pointBalance = pointService.getPointBalance(pointDto.getUserIdx());
+        int pointBalance = (int)pointService.getPointBalance(pointDto.getUserIdx());
         int pointScore = (int)pointDto.getPointScore();
         UserDto userDto = new UserDto();
         userDto.setUserIdx(pointDto.getUserIdx());
@@ -95,9 +99,10 @@ public class PointController {
         //회원별로 포인트 내역을 기록해야 할 듯?
         pointDto.setPointTypeIdx(PointType.획득.value());//이렇게 하면 획득의 값인 2가 나오나?
 
+
         //int, double 단위 좀 맞춰야 할 듯....
         //회원 포인트 잔액 조회 -> 잔액 + 충전액 -> 회원정보 업데이트 -> 포인트 충전 내역 입력
-        int pointBalance = pointService.getPointBalance(pointDto.getUserIdx());
+        int pointBalance = (int)(pointService.getPointBalance(pointDto.getUserIdx()));
         int pointScore = (int)pointDto.getPointScore();
         UserDto userDto = new UserDto();
         userDto.setUserIdx(pointDto.getUserIdx());

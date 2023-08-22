@@ -10,7 +10,7 @@ public interface TodoMapper {
 
 
     //투두리스트 조회
-    public List<TodoDto> getTodoList(long userIdx, String todoDate) throws Exception;
+    public List<TodoDto> getTodoList(long userIdx, String todoDate, int date) throws Exception;
 
     //투두 등록
     public int insertTodo(TodoDto todoDto) throws Exception;

@@ -23,7 +23,7 @@ public interface PointMapper {
 
 
     //회원 현재 포인트 조회
-    public int getPointBalance(long userIdx) throws Exception;
+    public double getPointBalance(long userIdx) throws Exception;
 
     //회원 포인트 잔액 수정
     public int updatePointBalance(UserDto userDto) throws Exception;
