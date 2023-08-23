@@ -14,7 +14,7 @@ public class TodoDto {
     private long todoIdx;
     private long userIdx;
     private String todoContents;
-    private Date todoDate;
+    private String todoDate;
     private int todoDone;               //완료여부
     private String todoDelete;          //삭제여부
     private Timestamp todoStartDate;
