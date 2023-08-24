@@ -3,6 +3,7 @@ package sidea.version.nudge.controller.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sidea.version.nudge.dto.UserDto;
 import sidea.version.nudge.service.LoginService;
@@ -15,7 +16,7 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/regist")
-    public ResponseEntity<Object> regist(@RequestBody UserDto userDto) throws Exception{
+    public ResponseEntity<Object> regist(@Validated  @RequestBody UserDto userDto) throws Exception{
 
         if(userDto.getUserLeave() == null) {
             userDto.setUserLeave("N");

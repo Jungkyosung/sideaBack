@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sidea.version.nudge.dto.TodoDto;
 import sidea.version.nudge.service.TodoService;
@@ -35,7 +36,7 @@ public class TodoController {
 
     //투두 등록
     @PostMapping("/todo")
-    public ResponseEntity<Object> insertTodo(@RequestBody TodoDto todoDto) throws Exception {
+    public ResponseEntity<Object> insertTodo(@Validated  @RequestBody TodoDto todoDto) throws Exception {
 
         int insertedTodo = todoService.insertTodo(todoDto);
 
@@ -48,7 +49,7 @@ public class TodoController {
 
     //투두 수정
     @PutMapping("/todo")
-    public ResponseEntity<Object> updateTodo(@RequestBody TodoDto todoDto) throws Exception {
+    public ResponseEntity<Object> updateTodo(@Validated @RequestBody TodoDto todoDto) throws Exception {
 
         int updatedTodo = todoService.updateTodo(todoDto);
 

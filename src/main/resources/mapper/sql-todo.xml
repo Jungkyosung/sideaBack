@@ -7,7 +7,7 @@
     <select id="getTodoList" resultType="sidea.version.nudge.dto.TodoDto">
         select * from todo
         where user_idx = #{userIdx} and todo_delete = 'N'
-        and ( todo_date = #{todoDate} or  (todo_start_date &lt;= #{todoDate} and todo_end_date &gt;= #{todoDate}) or
+        and ((todo_start_date &lt;= #{todoDate} and todo_end_date &gt;= #{todoDate}) or
         <choose>
             <when test="date == 1">
                 todo_mon = 1
@@ -36,16 +36,16 @@
 
     <!--  투두등록  -->
     <insert id="insertTodo" parameterType="sidea.version.nudge.dto.TodoDto">
-        insert todo (user_idx, todo_contents, todo_date, todo_start_date, todo_end_date, todo_alarm, todo_point,
+        insert todo (user_idx, todo_contents, todo_start_date, todo_end_date, todo_alarm, todo_alarm_time, todo_point,
         todo_mon, todo_tue, todo_wed, todo_thu, todo_fri, todo_sat, todo_sun)
-        value (#{userIdx}, #{todoContents}, #{todoDate}, #{todoStartDate}, #{todoEndDate}, #{todoAlarm}, #{todoPoint},
+        value (#{userIdx}, #{todoContents}, #{todoStartDate}, #{todoEndDate}, #{todoAlarm}, #{todoAlarmTime}, #{todoPoint},
         #{todoMon}, #{todoTue}, #{todoWed}, #{todoThu}, #{todoFri}, #{todoSat}, #{todoSun})
     </insert>
 
     <!--  투두수정  -->
     <update id="updateTodo" parameterType="sidea.version.nudge.dto.TodoDto">
         update todo set
-        todo_contents = #{todoContents}, todo_date = #{todoDate}, todo_start_date=#{todoStartDate}, todo_end_date=#{todoEndDate}, todo_alarm = #{todoAlarm}, todo_point = #{todoPoint}
+        todo_contents = #{todoContents}, todo_start_date=#{todoStartDate}, todo_end_date=#{todoEndDate}, todo_alarm = #{todoAlarm}, todo_alarm_time = #{todoAlarmTime}, todo_point = #{todoPoint}
         where todo_idx = #{todoIdx}
     </update>
 
