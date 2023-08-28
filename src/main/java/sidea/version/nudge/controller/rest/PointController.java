@@ -2,10 +2,13 @@ package sidea.version.nudge.controller.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sidea.version.nudge.controller.web.PointUpdateEvent;
 import sidea.version.nudge.dto.*;
 import sidea.version.nudge.service.PointService;
 
@@ -18,6 +21,18 @@ public class PointController {
 
     @Autowired
     private PointService pointService;
+
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+
+    @EventListener
+    public void handlerPointUpdateEvent(PointUpdateEvent event){
+        Long userIdx = event.getUserIdx();
+        Double userPointBalance = event.getUserPointBalance();
+
+//        messagingTemplate.convertAndSend("/topic/notifications", new Notification(message));
+    }
 
 
     //회원 포인트 내역 리스트 조회
