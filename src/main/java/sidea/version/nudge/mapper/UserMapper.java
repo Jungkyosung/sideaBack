@@ -3,6 +3,8 @@ package sidea.version.nudge.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import sidea.version.nudge.dto.UserDto;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
 
@@ -20,5 +22,8 @@ public interface UserMapper {
 
     //비밀번호 확인
     public UserDto selectUserPw(UserDto userDto) throws Exception;
+
+    //탈퇴하지 않은 회원 전체 조회
+    public List<UserDto> findNotLeaveUser() throws Exception;
 
 }

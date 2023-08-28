@@ -28,5 +28,11 @@
         where user_nickname = #{userNickname}
     </select>
 
+<!--  탈퇴하지 않은 회원 전체 조회  -->
+    <select id="findNotLeaveUser" resultType="sidea.version.nudge.dto.UserDto">
+        select user_idx, user_email, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave
+        from user
+        where user_leave is null or user_leave = 'N'
+    </select>
 
 </mapper>
