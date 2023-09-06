@@ -9,7 +9,7 @@
         from donation dn
         join donor dr
         on dn.donor_idx = dr.donor_idx
-        where donation_delete = "N" and donation_duration &gt; now()
+        where donation_delete = "N"
     </select>
 
 <!--  기부세부내역 조회  -->
@@ -21,26 +21,21 @@
         where donation_idx = #{donationIdx}
     </select>
 
-    <!--  참여 리스트 조회(작업 중)  -->
+    <!--  참여 리스트 조회  -->
     <select id="getDonationListByUser" parameterType="Integer" resultType="sidea.version.nudge.dto.DonationInfoDto">
-        select * from user_donation ud
+        select ud.donation_idx as donation_idx, min(ud.user_donation_idx) as user_donation_idx, ud.user_idx, donor_idx, donation_amount, donation_target_amount, donation_date, donation_duration, donation_delete, donation_name from user_donation ud
         join donation d
         on ud.donation_idx = d.donation_idx
         join user u
         on u.user_idx = ud.user_idx
         where u.user_idx = #{userIdx}
+        group by donation_idx;
     </select>
 
-
-
-
-    <insert id="registUser" parameterType="sidea.version.nudge.dto.UserDto">
-        insert into user (user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave)
-        values (#{userEmail}, #{userPw}, #{userNickname}, #{userImage}, #{userPointBalance}, #{userDonationBalance}, #{userLeave})
+<!--  기부참여하기  -->
+    <insert id="donate" parameterType="sidea.version.nudge.dto.UserDonationDto">
+        insert into user_donation (donation_idx, user_idx, user_donation_point)
+        values ( #{donationIdx}, #{userIdx} , #{userDonationPoint})
     </insert>
 
-    <update id="userLeave" parameterType="sidea.version.nudge.dto.UserDto">
-        update user set user_leave = "Y"
-        where user_email = #{userEmail}
-    </update>
 </mapper>

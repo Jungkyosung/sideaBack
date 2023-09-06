@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sidea.version.nudge.dto.DonationDto;
 import sidea.version.nudge.dto.DonationInfoDto;
+import sidea.version.nudge.dto.UserDonationDto;
 import sidea.version.nudge.mapper.DonationMapper;
 
 import java.util.List;
@@ -27,6 +28,11 @@ public class DonationService {
     //참여한 기부 리스트
     public List<DonationInfoDto> getDonationListByUser(int userIdx) throws Exception{
         return donationMapper.getDonationListByUser(userIdx);
+    }
+
+    //기부참여하기
+    public int donate(UserDonationDto userDonationDto) throws Exception{
+        return donationMapper.donate(userDonationDto);
     }
 
 }

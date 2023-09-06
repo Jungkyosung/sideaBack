@@ -4,8 +4,10 @@
 <mapper namespace="sidea.version.nudge.mapper.TodoMapper">
 
     <!--  투두리스트조회 회원,날짜, 미삭제, 시작일/종료일, 특정요일  -->
-    <select id="getTodoList" resultType="sidea.version.nudge.dto.TodoDto">
-        select * from todo
+    <select id="getTodoList" resultType="sidea.version.nudge.dto.TodoDoneDto">
+        select * from todo t
+        left join todo_done td
+        on t.todo_idx = td.todo_idx
         where user_idx = #{userIdx} and todo_delete = 'N'
         and ((todo_start_date &lt;= #{todoDate} and todo_end_date &gt;= #{todoDate}) or
         <choose>
@@ -45,7 +47,8 @@
     <!--  투두수정  -->
     <update id="updateTodo" parameterType="sidea.version.nudge.dto.TodoDto">
         update todo set
-        todo_contents = #{todoContents}, todo_start_date=#{todoStartDate}, todo_end_date=#{todoEndDate}, todo_alarm = #{todoAlarm}, todo_alarm_time = #{todoAlarmTime}, todo_point = #{todoPoint}
+        todo_contents = #{todoContents}, todo_start_date=#{todoStartDate}, todo_end_date=#{todoEndDate}, todo_alarm = #{todoAlarm}, todo_alarm_time = #{todoAlarmTime}, todo_point = #{todoPoint},
+        todo_mon = #{todoMon}, todo_tue = #{todoTue}, todo_wed = #{todoWed}, todo_thu = #{todoThu}, todo_fri = #{todoFri}, todo_sat = #{todoSat}, todo_sun = #{todoSun}
         where todo_idx = #{todoIdx}
     </update>
 
@@ -56,12 +59,18 @@
         where todo_idx = #{todoIdx}
     </update>
 
-    <!--  투두완료  -->
-    <update id="finishTodo" parameterType="sidea.version.nudge.dto.TodoDto">
-        update todo set
-        todo_done = 1,
+    <!--  투두완료(첫추가)  -->
+    <insert id="insertTodoDone" parameterType="sidea.version.nudge.dto.TodoDoneDto">
+        insert into todo_done (todo_idx, todo_done_check )
+        values (#{todoIdx}, 1)
+    </insert>
+
+    <!--  투두완료(변경)  -->
+    <update id="updateTodoDone" parameterType="sidea.version.nudge.dto.TodoDoneDto">
+        update todo_done set
+        todo_done_check = #{todoDoneCheck},
         todo_done_time = now()
-        where todo_idx = #{todoIdx}
+        where todo_done_idx = #{todoDoneIdx}
     </update>
 
     <!--  투두알림 설정  -->

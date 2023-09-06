@@ -23,18 +23,18 @@
 
 <!--  캠페인 등록  -->
     <insert id="insertDonation" parameterType="sidea.version.nudge.dto.DonationInfoDto">
-        insert into donation (donor_idx, donation_amount, donation_target_amount, donation_date, donation_duration)
-        value ( #{donorIdx}, #{donationAmount}, #{donationTargetAmount}, #{donationDate} ,#{donationDuration} )
+        insert into donation (donor_idx, donation_target_amount, donation_date, donation_duration, donation_name, donation_image)
+        value ( #{donorIdx}, #{donationTargetAmount}, #{donationDate} ,#{donationDuration}, #{donationName} , #{donationImage})
     </insert>
 
 <!--  캠페인 수정  -->
     <update id="updateDonation" parameterType="sidea.version.nudge.dto.DonationInfoDto">
         update donation set
         donor_idx = #{donorIdx},
-        donation_amount = #{donationAmount},
         donation_target_amount = #{donationTargetAmount},
         donation_date = #{donationDate},
-        donation_duration = #{donationDuration}
+        donation_duration = #{donationDuration},
+        donation_name = #{donationName}
         where donation_idx = #{donationIdx}
     </update>
 

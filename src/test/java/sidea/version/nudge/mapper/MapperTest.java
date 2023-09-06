@@ -30,6 +30,4 @@ public class MapperTest {
         //then
         Assertions.assertThat(user.getUserEmail()).isEqualTo(userEmail);
     }
-
-
 }

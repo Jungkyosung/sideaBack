@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import sidea.version.nudge.dto.TodoDoneDto;
 import sidea.version.nudge.dto.TodoDto;
 import sidea.version.nudge.service.TodoService;
 
@@ -13,14 +14,14 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/todo")
 public class TodoController {
 
     @Autowired
     private TodoService todoService;
 
     //투두리스트조회 회원, 날짜별
-    @GetMapping("/todo")
+    @GetMapping("")
     public ResponseEntity<Object> getTodoList(@RequestParam(value = "userIdx") long userIdx,
                                               @RequestParam(value = "todoDate") String todoDate,
                                               @RequestParam(value = "date") int date) throws Exception {
@@ -35,7 +36,7 @@ public class TodoController {
     }
 
     //투두 등록
-    @PostMapping("/todo")
+    @PostMapping("")
     public ResponseEntity<Object> insertTodo(@Validated  @RequestBody TodoDto todoDto) throws Exception {
 
         int insertedTodo = todoService.insertTodo(todoDto);
@@ -48,7 +49,7 @@ public class TodoController {
     }
 
     //투두 수정
-    @PutMapping("/todo")
+    @PutMapping("")
     public ResponseEntity<Object> updateTodo(@Validated @RequestBody TodoDto todoDto) throws Exception {
 
         int updatedTodo = todoService.updateTodo(todoDto);
@@ -61,7 +62,7 @@ public class TodoController {
     }
 
     //투두 삭제
-    @DeleteMapping("/todo")
+    @DeleteMapping("")
     public ResponseEntity<Object> deleteTodo(@RequestBody TodoDto todoDto) throws Exception {
 
         int deletedTodo = todoService.deleteTodo(todoDto);
@@ -73,13 +74,26 @@ public class TodoController {
         }
     }
 
-    //투두 완료
-    @PutMapping("/todo/done")
-    public ResponseEntity<Object> finishTodo(@RequestBody TodoDto todoDto) throws Exception {
+    //투두 완료(첫 등록)
+    @PostMapping("/done")
+    public ResponseEntity<Object> insertTodoDone(@RequestBody TodoDoneDto todoDoneDto) throws Exception {
 
-        int finishedTodo = todoService.finishTodo(todoDto);
+        int insertedTodoDone = todoService.insertTodoDone(todoDoneDto);
 
-        if (finishedTodo > 0) {
+        if (insertedTodoDone > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body("완료");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("처리 불가");
+        }
+    }
+
+    //투두 완료(등록시 수정)
+    @PutMapping("/done")
+    public ResponseEntity<Object> updateTodoDone(@RequestBody TodoDoneDto todoDoneDto) throws Exception {
+
+        int updatedTodoDone = todoService.updateTodoDone(todoDoneDto);
+
+        if (updatedTodoDone > 0) {
             return ResponseEntity.status(HttpStatus.OK).body("완료");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("처리 불가");
@@ -87,7 +101,7 @@ public class TodoController {
     }
 
     //투두 알림 설정변경
-    @PutMapping("/todo/alarm")
+    @PutMapping("/alarm")
     public ResponseEntity<Object> alarmTodo(@RequestBody TodoDto todoDto) throws Exception {
 
         int alarmTodo = todoService.alarmTodo(todoDto);

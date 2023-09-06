@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sidea.version.nudge.dto.DonationDto;
 import sidea.version.nudge.dto.DonationInfoDto;
+import sidea.version.nudge.dto.UserDonationDto;
 import sidea.version.nudge.dto.UserDto;
 import sidea.version.nudge.service.DonationService;
 
@@ -57,8 +58,18 @@ public class DonationController {
         }
     }
 
-    //기부하기
+    //기부 참여하기
+    @PostMapping
+    public ResponseEntity<Object> donate(@RequestBody UserDonationDto userDonationDto) throws Exception{
 
+        int donatedCnt = donationService.donate(userDonationDto);
+
+        if( donatedCnt > 0) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("기부");
+        } else {
+            return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body("기부 실패");
+        }
+    }
 
 
 }

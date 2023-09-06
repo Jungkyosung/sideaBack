@@ -16,5 +16,6 @@ public class DonationDto {
     private Timestamp donationDate;      //기부날짜
     private Timestamp donationDuration;  //기부마감
     private String donationDelete;       //삭제여부
+    private String donationName;
 
 }

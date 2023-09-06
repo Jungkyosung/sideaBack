@@ -1,7 +1,5 @@
 package sidea.version.nudge.dto;
 
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
@@ -10,11 +8,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
-public class TodoDto {
-
-    //SQL의 DateTime으로 Timestamp를 사용했는데 String과 비교해서 변경가능
-    //SQL의 Date로 java.sql.Date를 사용했는데 String과 비교해서 변경가능
-
+public class TodoDoneDto {
 
     private long todoIdx;
     private long userIdx;
@@ -51,5 +45,10 @@ public class TodoDto {
     @Range(min = 0, max = 1, message = "0과 1만 입력할 수 있습니다.")
     private int todoSun;
 
+    //todo Done Table
 
+    private int todoDoneIdx;
+    @Range(min = 0, max = 1, message = "0과 1만 입력할 수 있습니다.")
+    private int todoDoneCheck;
+    private Timestamp todoDoneTime;
 }

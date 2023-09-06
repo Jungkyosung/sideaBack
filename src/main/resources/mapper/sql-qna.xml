@@ -9,6 +9,8 @@
         select ask_idx, user_idx, ask_title, ask_contents, ask_date, ask_answer, ask_answer_date
         from ask
         where user_idx = #{userIdx}
+        and ask_delete = "N"
+        order by ask_idx desc
     </select>
 
 <!--  QNA 상세 조회  -->

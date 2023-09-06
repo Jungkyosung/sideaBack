@@ -82,4 +82,5 @@ public class AdminDonationController {
             return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body("삭제 불가");
         }
     }
+
 }

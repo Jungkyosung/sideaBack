@@ -22,5 +22,6 @@ public class UserDto {
     private double userPointBalance;
     private double userDonationBalance;
     private String userLeave;
+    private int userAuth;
 
 }

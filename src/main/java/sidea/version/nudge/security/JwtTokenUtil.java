@@ -45,6 +45,7 @@ public class JwtTokenUtil {
                 .claim("userPointBalance", userDto.getUserPointBalance())			//유저 잔여포인트
                 .claim("userDonationBalance", userDto.getUserDonationBalance())	//유저 잔여기부포인트
                 .claim("userIdx", userDto.getUserIdx())	//유저 잔여기부포인트
+                .claim("userAuth", userDto.getUserAuth())       //유저 권한, 0 관리자, 1 일반
 
                 .setSubject(userDto.getUserEmail())		//해당 토큰이 발급되는 주체지정.
                 .setId(UUID.randomUUID().toString())	//jwt토큰에 UUID(고유값)으로 지정.

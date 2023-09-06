@@ -26,7 +26,7 @@ public class TodoPointBatchService {
     @Autowired
     private TodoMapper todoMapper;
 
-    @Scheduled(cron = 0 55 23 * * *)
+    @Scheduled(cron= "0 55 23 * * *")
     public void startBatch() throws Exception{
 
         //오늘자를 기준으로 탈퇴하지 않은 회원 모두 조회
@@ -46,12 +46,12 @@ public class TodoPointBatchService {
 
         //이걸 회원별로 하나씩 처리하는 게 맞는 걸까?
         //1.회원별로 하나씩 처리시
-
         for ( UserDto user : userList){
 
             int minusPoint = 0;
             int plusPoint = 0;
 
+            //todoList todoDone테이블과 조인해서 가져올 것.
             List<TodoDto> todoList = todoMapper.getTodoList(user.getUserIdx(), now.toString(), dayOfWeekNumber);
             for( TodoDto todo : todoList){
 
