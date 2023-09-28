@@ -35,6 +35,7 @@
         donation_date = #{donationDate},
         donation_duration = #{donationDuration},
         donation_name = #{donationName}
+        donation_image = #{donationImage}
         where donation_idx = #{donationIdx}
     </update>
 

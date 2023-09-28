@@ -5,10 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import sidea.version.nudge.dto.UserDto;
 import sidea.version.nudge.service.UserService;
 
+import java.io.File;
 import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -34,7 +38,13 @@ public class UserController {
 
     //회원정보 변경
     @PutMapping("/user")
-    public ResponseEntity<Object> userLeave(@RequestBody UserDto userDto) throws Exception{
+    public ResponseEntity<Object> userLeave(@RequestPart(value = "prfImg") MultipartFile prfImg, @RequestPart(value = "data") UserDto userDto) throws Exception{
+
+        log.info("prfImg={}",prfImg);
+        log.info("userDto={}",userDto);
+        Map<String, String> imgInfo = saveFiles(prfImg);
+        String imgName = imgInfo.get("savedFileName");
+        userDto.setUserImage(imgName);
 
         int leftCnt = userService.modifyUser(userDto);
 
@@ -86,5 +96,29 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body("비밀번호 불일치");
         }
+    }
+
+    final String UPLOAD_DIR = "C:/java/upload/";
+
+    public Map<String, String> saveFiles(MultipartFile files) {
+        Map<String, String> result = new HashMap<>();
+
+        if (files != null) {
+            String originFileName = files.getOriginalFilename();
+            System.out.println(">>>>>>>>>>>>>>>>>>" + originFileName);
+            String savedFileName = System.currentTimeMillis() + originFileName;
+
+            try {
+                File f = new File(UPLOAD_DIR + savedFileName);
+                files.transferTo(f);
+
+                result.put("originalFileName", originFileName);
+                result.put("savedFileName", savedFileName);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 }

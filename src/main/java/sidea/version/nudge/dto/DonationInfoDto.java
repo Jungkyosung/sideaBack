@@ -16,7 +16,7 @@ public class DonationInfoDto {
     private Timestamp donationDuration;  //기부마감
     private String donationDelete;       //삭제여부
     private String donationName;
-
+    private String donationImage;        //이미지
     //기부자 정보
     private String donorName;
     private String donorImage;

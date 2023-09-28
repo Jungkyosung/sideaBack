@@ -39,7 +39,7 @@
     <!--  회원 현재 포인트 잔액 수정  -->
     <update id="updatePointBalance" parameterType="sidea.version.nudge.dto.UserDto" >
         update user set user_point_balance = #{userPointBalance}
-        where user_idx = #{userIdx}
+    where user_idx = #{userIdx}
     </update>
 
 
