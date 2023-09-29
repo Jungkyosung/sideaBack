@@ -52,9 +52,8 @@ public class PointService {
 
     //회원 현재 포인트 잔액 수정
     public int updatePointBalance(UserDto userDto) throws Exception{
+        //포인트 잔액이 수정됐을 때,
         eventPublisher.publishEvent(new PointUpdateEvent(this, userDto.getUserIdx(), userDto.getUserPointBalance()));
         return pointMapper.updatePointBalance(userDto);
     }
-
-
 }
