@@ -28,6 +28,12 @@
         where user_nickname = #{userNickname}
     </select>
 
+<!--  이메일 중복 확인  -->
+    <select id="emailDuplCheck" resultType="sidea.version.nudge.dto.UserDto">
+        select * from user
+        where user_email = #{userEmail}
+    </select>
+
 <!--  탈퇴하지 않은 회원 전체 조회  -->
     <select id="findNotLeaveUser" resultType="sidea.version.nudge.dto.UserDto">
         select user_idx, user_email, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave

@@ -84,6 +84,19 @@ public class UserController {
         }
     }
 
+    //이메일 중복 확인
+    @GetMapping("/useremail/duplicate")
+    public ResponseEntity<Integer> emailDuplCheck(@RequestParam(value = "useremail") String userEmail) throws Exception{
+        //TODO 이메일 주소라서 param인식이 안될 수 있음 확인 필요함.
+        UserDto selectedUser = userService.emailDuplCheck(userEmail);
+
+        if (selectedUser == null){
+            return ResponseEntity.status(HttpStatus.OK).body(0);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(1);
+        }
+    }
+
     //비밀번호 확인
     @GetMapping("/userpw")
     public ResponseEntity<String> selectUserPw(@RequestParam(value = "userEmail") String userEmail, @RequestParam(value = "userPw") String userPw) throws Exception{

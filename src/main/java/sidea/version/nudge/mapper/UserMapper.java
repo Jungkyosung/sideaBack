@@ -20,6 +20,9 @@ public interface UserMapper {
     //닉네임 중복 확인
     public UserDto nicknameDuplCheck(String userNickname) throws Exception;
 
+    //이메일 중복 확인
+    public UserDto emailDuplCheck(String userEmail) throws Exception;
+
     //비밀번호 확인
     public UserDto selectUserPw(UserDto userDto) throws Exception;
 

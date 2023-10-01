@@ -39,6 +39,11 @@ public class UserService {
         return userMapper.nicknameDuplCheck(userNickname);
     }
 
+    //이메일 중복 확인
+    public UserDto emailDuplCheck(String userEmail) throws Exception{
+        return userMapper.emailDuplCheck(userEmail);
+    }
+
     //비밀번호 확인
     public boolean selectUserPw(String userEmail, String userPw) throws Exception{
 
