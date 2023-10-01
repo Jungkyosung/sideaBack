@@ -47,4 +47,8 @@ public class UserService {
 
         return passwordEncoder.matches(userPw, selectedUserPw);
     }
+
+    public int setTempPassword(String userEmail, String userPw) throws Exception{
+        return userMapper.setTempPassword(userEmail, userPw);
+    }
 }

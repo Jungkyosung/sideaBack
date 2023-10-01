@@ -35,4 +35,10 @@
         where user_leave is null or user_leave = 'N'
     </select>
 
+<!--  임시 비번 부여  -->
+    <update id="setTempPassword">
+        update user set user_pw = #{userPw}
+        where user_email = #{userEmail}
+    </update>
+
 </mapper>

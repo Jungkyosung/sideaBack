@@ -26,4 +26,8 @@ public interface UserMapper {
     //탈퇴하지 않은 회원 전체 조회
     public List<UserDto> findNotLeaveUser() throws Exception;
 
+    //임시 비번 부여
+    public int setTempPassword(String userEmail, String userPw) throws Exception;
+
+
 }
