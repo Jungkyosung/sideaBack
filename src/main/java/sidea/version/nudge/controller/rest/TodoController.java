@@ -113,5 +113,18 @@ public class TodoController {
         }
     }
 
+    //투두 알림관련 이용자의 현재 시간 이후 일정(매주 반복 포함) 조회
+    @GetMapping("/alarm/todolist")
+    public ResponseEntity<Object> getAlarmTodolist(@RequestParam(value = "userIdx") long userIdx,
+                                              @RequestParam(value = "todoDate") String todoDate) throws Exception {
+
+        List<TodoDto> alarmTodolist = todoService.getAlarmTodolist(userIdx, todoDate);
+
+        if (alarmTodolist.size() > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body(alarmTodolist);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("처리불가");
+        }
+    }
 
 }

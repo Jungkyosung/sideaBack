@@ -31,4 +31,7 @@ public interface TodoMapper {
     //투두 알람 설정 변경
     public int alarmTodo(TodoDto todoDto) throws Exception;
 
+    //투두 알람리스트 조회
+    public List<TodoDto> getAlarmTodolist(long userIdx, String todoDate) throws Exception;
+
 }

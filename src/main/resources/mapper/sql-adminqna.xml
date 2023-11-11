@@ -6,22 +6,22 @@
     <!-- 미작업 -->
     <!-- Qna 목록 전체 조회 -->
     <select id="getQnaList" resultType="sidea.version.nudge.dto.AskDto">
-        select ask_idx, user_idx, ask_title, ask_contents, ask_date, ask_answer, ask_answer_date, ask_delete
+        select ask_idx, user_idx, ask_title, ask_contents, ask_date, ask_answer, ask_answer_date, ask_delete, ask_answer_delete
         from ask
-        where ask_answer_delete="N"
+        where ask_delete="N"
         order by ask_idx desc
     </select>
 
     <!--  QNA 상세 조회  -->
     <select id="getQnaDetail" parameterType="Long" resultType="sidea.version.nudge.dto.AskDto">
-        select ask_idx, user_idx, ask_title, ask_contents, ask_date, ask_answer, ask_answer_date, ask_delete
+        select ask_idx, user_idx, ask_title, ask_contents, ask_date, ask_answer, ask_answer_date, ask_delete, ask_answer_delete
         from ask
         where ask_idx = #{askIdx}
     </select>
 
     <!--  QNA 답변 등록  -->
     <update id="insertQna" parameterType="sidea.version.nudge.dto.AskDto">
-        update ask set ask_answer = #{askAnswer}, ask_answer_date = #{askAnswerDate}
+        update ask set ask_answer = #{askAnswer}, ask_answer_date = #{askAnswerDate}, ask_answer_delete="N"
         where ask_idx = #{askIdx}
     </update>
 

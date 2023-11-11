@@ -54,6 +54,7 @@ public class UserService {
     }
 
     public int setTempPassword(String userEmail, String userPw) throws Exception{
+        userPw = passwordEncoder.encode(userPw);
         return userMapper.setTempPassword(userEmail, userPw);
     }
 }

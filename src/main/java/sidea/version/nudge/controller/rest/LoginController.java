@@ -1,18 +1,18 @@
 package sidea.version.nudge.controller.rest;
 
-import jakarta.mail.internet.MimeMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sidea.version.nudge.dto.UserDto;
 import sidea.version.nudge.service.LoginService;
 
-import java.util.Random;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class LoginController {
@@ -21,20 +21,30 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/regist")
-    public ResponseEntity<Object> regist(@Validated  @RequestBody UserDto userDto) throws Exception{
+    @PostMapping("/register")
+    public ResponseEntity<Object> register(@Validated  @RequestBody UserDto userDto) throws Exception{
 
-        if(userDto.getUserLeave() == null) {
-            userDto.setUserLeave("N");
-        }
+        EmailController.EmailVerifyCode codeInfo = EmailController.keyStorage.get(userDto.getUserEmail());
+        LocalDateTime now = LocalDateTime.now();
+        Duration difTime = Duration.between(now, codeInfo.getTime());
+        log.info("시간차이={}",difTime.toMinutes());
+        if (userDto.getRegisterCode().equals(codeInfo.getCode()) && difTime.toMinutes() < 30){
+            if(userDto.getUserLeave() == null) {
+                userDto.setUserLeave("N");
+            }
 
-        int registedCnt = loginService.registUser(userDto);
+            int registeredCnt = loginService.registerUser(userDto);
 
-        if( registedCnt > 0) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(registedCnt);
+            if( registeredCnt > 0) {
+                return ResponseEntity.status(HttpStatus.CREATED).body(registeredCnt);
+            } else {
+                return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body(registeredCnt);
+            }
         } else {
-            return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE).body(registedCnt);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("인증코드를 다시 확인해주세요.");
         }
+
+
     }
 
 }

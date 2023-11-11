@@ -6,7 +6,7 @@
 <!-- 미작업 -->
 <!-- 회원 Qna 목록 조회 -->
     <select id="getQnaList" parameterType="long" resultType="sidea.version.nudge.dto.AskDto">
-        select ask_idx, user_idx, ask_title, ask_contents, ask_date, ask_answer, ask_answer_date
+        select ask_idx, user_idx, ask_title, ask_contents, ask_date, ask_answer, ask_answer_date, ask_answer_delete
         from ask
         where user_idx = #{userIdx}
         and ask_delete = "N"
@@ -15,7 +15,7 @@
 
 <!--  QNA 상세 조회  -->
     <select id="getQnaDetail" parameterType="sidea.version.nudge.dto.AskDto" resultType="sidea.version.nudge.dto.AskDto">
-        select ask_idx, user_idx, ask_title, ask_contents, ask_date, ask_answer, ask_answer_date
+        select ask_idx, user_idx, ask_title, ask_contents, ask_date, ask_answer, ask_answer_date, ask_answer_delete
         from ask
         where ask_idx = #{askIdx} and user_idx = #{userIdx}
     </select>

@@ -53,4 +53,10 @@ public class TodoService {
         return todoMapper.alarmTodo(todoDto);
     }
 
+    //투두 알람리스트 조회
+    public List<TodoDto> getAlarmTodolist(long userIdx, String todoDate) throws Exception{
+
+        return todoMapper.getAlarmTodolist(userIdx, todoDate);
+    }
+
 }

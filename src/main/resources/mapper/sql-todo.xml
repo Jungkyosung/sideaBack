@@ -80,4 +80,12 @@
         where todo_idx = #{todoIdx}
     </update>
 
+    <select id="getAlarmTodolist" resultType="sidea.version.nudge.dto.TodoDoneDto">
+        select * from todo t
+        left join todo_done td
+        on t.todo_idx = td.todo_idx
+        where user_idx = #{userIdx} and todo_delete = 'N'
+        and todo_alarm = 1
+    </select>
+
 </mapper>

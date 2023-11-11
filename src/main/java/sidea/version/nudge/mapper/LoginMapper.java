@@ -10,7 +10,7 @@ public interface LoginMapper {
 
     public UserDto selectUserByUserEmail(String userEmail);
 
-    public int registUser(UserDto userDto) throws Exception;
+    public int registerUser(UserDto userDto) throws Exception;
 
 
 }

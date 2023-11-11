@@ -15,7 +15,7 @@
         where user_email = #{userEmail}
     </select>
 
-    <insert id="registUser" parameterType="sidea.version.nudge.dto.UserDto">
+    <insert id="registerUser" parameterType="sidea.version.nudge.dto.UserDto">
         insert into user (user_email, user_pw, user_nickname, user_image, user_point_balance, user_donation_balance, user_leave)
         values (#{userEmail}, #{userPw}, #{userNickname}, #{userImage}, #{userPointBalance}, #{userDonationBalance}, #{userLeave})
     </insert>

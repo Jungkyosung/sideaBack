@@ -12,7 +12,12 @@
 <!--  정보수정  -->
     <update id="modifyUser" parameterType="sidea.version.nudge.dto.UserDto">
         update user set
-        user_pw = #{userPw}, user_image = #{userImage}, user_nickname=#{userNickname}
+        <if test="userImage!=null">
+            user_pw = #{userPw}, user_image = #{userImage}, user_nickname=#{userNickname}
+        </if>
+        <if test="userImage==null">
+            user_pw = #{userPw}, user_nickname=#{userNickname}
+        </if>
         where user_email = #{userEmail}
     </update>
 

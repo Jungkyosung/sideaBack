@@ -22,5 +22,6 @@ public class UserDto {
     private double userDonationBalance;
     private String userLeave;
     private int userAuth;
+    private String registerCode;    //회원가입시 코드열
 
 }

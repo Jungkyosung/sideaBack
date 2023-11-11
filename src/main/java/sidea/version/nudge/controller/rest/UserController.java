@@ -38,13 +38,13 @@ public class UserController {
 
     //회원정보 변경
     @PutMapping("/user")
-    public ResponseEntity<Object> userLeave(@RequestPart(value = "prfImg") MultipartFile prfImg, @RequestPart(value = "data") UserDto userDto) throws Exception{
+    public ResponseEntity<Object> userLeave(@RequestPart(value = "prfImg", required = false) MultipartFile prfImg, @RequestPart(value = "data") UserDto userDto) throws Exception{
 
-        log.info("prfImg={}",prfImg);
-        log.info("userDto={}",userDto);
-        Map<String, String> imgInfo = saveFiles(prfImg);
-        String imgName = imgInfo.get("savedFileName");
-        userDto.setUserImage(imgName);
+        if (prfImg != null) {
+            Map<String, String> imgInfo = saveFiles(prfImg);
+            String imgName = imgInfo.get("savedFileName");
+            userDto.setUserImage(imgName);
+        }
 
         int leftCnt = userService.modifyUser(userDto);
 

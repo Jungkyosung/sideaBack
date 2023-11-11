@@ -43,10 +43,10 @@ public class LoginService implements UserDetailsService {
         return loginMapper.selectUserByUserEmail(userId);
     }
 
-    public int registUser(UserDto userDto) throws Exception {
-//        userDto.setUserImage("profile" + ((int)(Math.random()*8)+1) + ".png");
+    public int registerUser(UserDto userDto) throws Exception {
+        userDto.setUserImage("profile" + ((int)(Math.random()*3)+1) + ".png");
         userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
-        return loginMapper.registUser(userDto);
+        return loginMapper.registerUser(userDto);
     }
 
 
