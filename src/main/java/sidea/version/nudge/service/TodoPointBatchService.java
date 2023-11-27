@@ -1,8 +1,10 @@
 package sidea.version.nudge.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import sidea.version.nudge.dto.TestDto;
 import sidea.version.nudge.dto.TodoDto;
 import sidea.version.nudge.dto.UserDto;
 import sidea.version.nudge.mapper.TodoMapper;
@@ -17,6 +19,10 @@ import java.util.List;
 public class TodoPointBatchService {
 
 
+    //알림은 최근 100개만 보여주면 될 듯? 그 중에서 안 읽은 것만 개수를 세면 될 듯 함
+    @Autowired
+    private SimpMessageSendingOperations messagingTemplate;
+
     @Autowired
     private PointService pointService;
 
@@ -25,6 +31,17 @@ public class TodoPointBatchService {
 
     @Autowired
     private TodoMapper todoMapper;
+
+    @Scheduled(cron= "0/5 * * * * *")
+    public void notificationTest(){
+
+        //메시지알림은 이렇게 보내면 됨. 포인트가 갱신되면 어떻게 처리할지가 문제임. 배치는 배치대로 돌텐데
+        //
+        TestDto tdto = new TestDto();
+        tdto.setMsg("메시지가 잘 가는지 테스트");
+        messagingTemplate.convertAndSend("/topic/alarm", tdto);
+    }
+
 
     @Scheduled(cron= "0 55 23 * * *")
     public void startBatch() throws Exception{

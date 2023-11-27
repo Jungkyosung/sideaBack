@@ -56,7 +56,7 @@ public class WebSecurity {
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.cors().and().csrf().disable();
         http.authorizeRequests()
-                .requestMatchers("/**", "/login", "/register", "/hello", "/api/email/code", "/api/email/password").permitAll() //로그인 없이 허용할 주소 설정.
+                .requestMatchers("/**", "/ws/**", "/login", "/register", "/hello", "/api/email/code", "/api/email/password").permitAll() //로그인 없이 허용할 주소 설정.
                 .anyRequest().authenticated()					//허용 외의 다른 요청들은 인증실행한다.
                 .and().addFilter(getAuthenticationFilter())		//필터를 추가한다.(콜백으로 인증필터 실행)
                 .addFilterBefore(jwtRequestFilter, AuthenticationFilter.class);	//필터수행전에.
